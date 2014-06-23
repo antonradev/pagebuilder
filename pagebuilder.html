@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery Page Builder</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" media="all" href="css/pagebuilder.css">
+        <link rel="stylesheet" type="text/css" media="all" href="css/colorpicker.css">
+        <link rel="stylesheet" type="text/css" media="all" href="css/font-awesome.min.css">
+    </head>
+
+    <body>
+
+        <div class="project-description">
+            <div class="close"><span>&times;</span></div>
+            <h1>jQuery Simple Page Builder</h1>
+            <h2>Creates basic web page interface layout</h2>
+            <p>
+                Author: Anton Radev
+                <br>
+                License: MIT
+            </p>
+            
+            <p>jQuery Simple Page Builder is jQuery written tool for creating dynamically
+                elements in web environment.
+            </p>
+            <p>
+                This demo can create buttons in the main manu and text elements in
+                a container area in the page.
+                Both buttons and text elements support color changing via color picker.
+            </p>
+        </div>
+        <span class="open-project-description">About</span>
+
+        <div id="page">
+            <div class="navigation">
+                <a class="button">Home</a>
+                <a class="button">About</a>
+                <a class="button">Drag Me</a>
+            </div>
+
+            <div id="toolbar-container"></div>
+
+            <div class="container">
+                <div class="text"><div class="text-settings"><span class="fa fa-gear"></span></div>Add new Button or Text element from options above</div>
+                <div class="text"><div class="text-settings"><span class="fa fa-gear"></span></div>This is an example of text container element</div>
+            </div>
+
+            <footer>
+                <a href="http://jui.uxpd.net">jQuery Plugins and Web UI elements demos</a>
+            </footer>
+        </div>
+
+
+
+        <div class="data-modal" id="textButtonEntryModal">
+            <h3>Enter Button text</h3>
+            <div>
+                <input type="text" maxlength="20" id="buttonTextEntry" class="inputEntry">
+                <div>
+                    <span class="save" id="saveButtonText">Save</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-modal" id="textElementEntryModal">
+            <h3>Enter Text Element Content</h3>
+            <div>
+
+                <textarea maxlength="400" id="TextContenEntry" class="inputEntry"></textarea>
+                <div>
+                    <span class="save" id="saveTextEntry">Save</span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="data-modal" id="pageSettingsModal">
+            <h3>Page Settings</h3>
+            <div>
+                <label>Page Width (in pixels)</label>
+                <input type="text" maxlength="20" id="pageWidth" class="inputEntry"> px;
+                <label>Page Background Color</label>
+                <div>
+                    <input type="text" maxlength="20" id="pageBgColor" class="inputEntry">
+                </div>
+                <div>
+                    <span class="save" id="savePageSettings">Save</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="modal-overlay"></div>
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="js/colorpicker.js"></script>
+        <script src="js/pagebuilder.js"></script>
+        <script type="text/javascript">
+            $("#toolbar-container").pageBuilder();
+            $(".button").draggable({containment: "parent", snap: true});
+            $(".text").draggable({containment: "parent"});
+            $('.button').each(function() {
+                var _this = this;
+                $(this).ColorPicker({
+                    eventName: 'dblclick',
+                    onChange: function(hsb, hex, rgb) {
+                        _this.style.background = '#' + hex;
+                    }
+                });
+            });
+            $('.text').each(function() {
+                var _this = this;
+                $(this).find('.fa').ColorPicker({
+                    onChange: function(hsb, hex, rgb) {
+                        _this.style.background = '#' + hex;
+                    }
+                });
+                $('.colorpicker').draggable({cancel: '.colorpicker_color'});
+            });
+            $('#pageBgColor').ColorPicker({
+                onChange: function(hsb, hex, rgb) {
+                    $('body').css('backgroundColor', '#' + hex);
+                    color: $('#pageBgColor').val(hex);
+                },
+                onShow: function(hsb, hex, rgb) {
+                    color: $('#pageBgColor').val(hex);
+                }
+            });
+            $('.open-project-description').click(function() {
+                $('.project-description').fadeIn(300);
+            });
+            $('.project-description .close').click(function () {
+               $('.project-description').fadeOut(300); 
+            });
+        </script>
+    </body>
+</html>
