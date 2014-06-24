@@ -19,7 +19,7 @@
                 <br>
                 License: MIT
             </p>
-            
+
             <p>jQuery Simple Page Builder is jQuery written tool for creating dynamically
                 elements in web environment.
             </p>
@@ -41,8 +41,8 @@
             <div id="toolbar-container"></div>
 
             <div class="container">
-                <div class="text"><div class="text-settings"><span class="fa fa-gear"></span></div>Add new Button or Text element from options above</div>
-                <div class="text"><div class="text-settings"><span class="fa fa-gear"></span></div>This is an example of text container element</div>
+                <div class="text"><div class="text-settings"><span class="fa fa-gear"></span></div><div class="text-settings"><span class="fa fa-gear"></span></div><div class="text-remove"><span class="fa fa-times"></span></div>Add new Button or Text element from options above</div>
+                <div class="text"><div class="text-settings"><span class="fa fa-gear"></span></div><div class="text-remove"><span class="fa fa-times"></span></div>This is an example of text container element</div>
             </div>
 
             <footer>
@@ -114,12 +114,17 @@
             });
             $('.text').each(function() {
                 var _this = this;
-                $(this).find('.fa').ColorPicker({
+                $(this).find('.fa-gear').ColorPicker({
                     onChange: function(hsb, hex, rgb) {
                         _this.style.background = '#' + hex;
                     }
                 });
-                $('.colorpicker').draggable({cancel: '.colorpicker_color'});
+                $('.colorpicker').draggable({cancel: '.colorpicker_color, .colorpicker_hue'});
+                $(this).find('.fa-times').click(function() {
+                    $(this).parents('.text').fadeOut(200, function() {
+                        $(this).remove();
+                    });
+                });
             });
             $('#pageBgColor').ColorPicker({
                 onChange: function(hsb, hex, rgb) {
@@ -133,8 +138,8 @@
             $('.open-project-description').click(function() {
                 $('.project-description').fadeIn(300);
             });
-            $('.project-description .close').click(function () {
-               $('.project-description').fadeOut(300); 
+            $('.project-description .close').click(function() {
+                $('.project-description').fadeOut(300);
             });
         </script>
     </body>

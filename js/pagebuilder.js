@@ -39,7 +39,6 @@
             function pageSettings() {
                 $('.modal-overlay').fadeIn(200);
                 $('#pageSettingsModal').fadeIn(300);
-                $('.colorpicker').draggable({cancel: '.colorpicker_color'});
                 $('.colorpicker').css('z-index', '3');
             }
 
@@ -69,7 +68,9 @@
             $('#saveTextEntry').click(function() {
                 var textContent = $('#TextContenEntry').val();
                 $(".container").append(
-                        '<div class="text"><div class="text-settings"><span class="fa fa-gear"></span></div>' + textContent + '</div>');
+                        '<div class="text">\n\
+                         <div class="text-settings"><span class="fa fa-gear"></span>\n\
+                         </div><div class="text-remove"><span class="fa fa-times"></span></div>' + textContent + '</div>');
                 $(".text").draggable({containment: "parent"});
                 $('.modal-overlay').fadeOut(200);
                 $('.data-modal').fadeOut(300);
@@ -77,10 +78,16 @@
                 var textContent = null;
                 $('.text').each(function() {
                     var _this = this;
-                    $(this).find('.fa').ColorPicker({
+                    $(this).find('.fa-gear').ColorPicker({
                         onChange: function(hsb, hex, rgb) {
                             _this.style.background = '#' + hex;
                         }
+                    });
+                    $('.colorpicker').draggable({cancel: '.colorpicker_color, .colorpicker_hue'});
+                    $(this).find('.fa-times').click(function() {
+                        $(this).parents('.text').fadeOut(200, function() {
+                            $(this).remove();
+                        });
                     });
                 });
             });
