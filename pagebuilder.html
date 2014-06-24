@@ -38,7 +38,7 @@
                 <a class="button">Drag Me</a>
             </div>
 
-            <div id="toolbar-container"></div>
+            <div id="pageBuilder"></div>
 
             <div class="container">
                 <div class="text"><div class="text-settings"><span class="fa fa-gear"></span></div><div class="text-settings"><span class="fa fa-gear"></span></div><div class="text-remove"><span class="fa fa-times"></span></div>Add new Button or Text element from options above</div>
@@ -100,7 +100,7 @@
         <script src="js/colorpicker.js"></script>
         <script src="js/pagebuilder.js"></script>
         <script type="text/javascript">
-            $("#toolbar-container").pageBuilder();
+            $("#pageBuilder").pageBuilder();
             $(".button").draggable({containment: "parent", snap: true});
             $(".text").draggable({containment: "parent"});
             $('.button').each(function() {
